@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in Form</title>
+    <link rel="stylesheet" href="email.css">
+    <script>
+        function get_infos() {
+            let Nom = document.getElementById('Nom').value
+            let Prenom = document.getElementById('prenom').value
+            let email = document.getElementById('email').value
+            let password = document.getElementById('password').value
+            let infos = []
+            infos.push(email)
+            infos.push(password)
+            if ((Nom && Prenom && email && password).length > 0) {
+                document.getElementById('Resultat').innerHTML = `Bonjour Mr ${Nom} ${Prenom} Votre Inscription a été Réussi ✅`
+            }
+            else {
+                document.getElementById('Resultat').innerHTML = `tu dois remplir le formulaire ❌`
+
+            }
+        }
+
+        function Email_validation() {
+            let email = document.getElementById('email').value
+            let condition = email.split('.')
+            let condition2 = email.split('@')
+            let caractere = [" ", "_", "*", "$", "=", ")", "à", "ç", "è", "-", "'", "é", "&", ";", ":", "!", ",", "?", "<", ">"]
+            if (email.length == 0
+                || email.length > 30
+                || condition.length != 2
+                || caractere.includes(email)
+                || condition2.length != 2
+                || email.endsWith('gmail.com') == false) {
+                document.getElementById('emailVerfication').innerHTML = 'Email non Valide ❌'
+            }
+            else {
+                document.getElementById('emailVerfication').innerHTML = 'Email valide ✅'
+            }
+        }
+        function showPassword_yes() {
+            let password = document.getElementById('password').value
+            document.getElementById('affichage').innerHTML = password
+        }
+        function showPassword_Noo() {
+            let password = document.getElementById('password').value
+            document.getElementById('affichage').innerHTML = "Votre Mot de passe est sécurisé"
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Formulaire</h1>
+    <form>
+        <div class="align_flex">
+            <div class="align_inputs">
+                <div>
+                    <label for="Nom">Nom : </label>
+                    <input type="text" id="Nom" name="Nom" placeholder="Entrez Votre Nom" required>
+                </div>
+                <div>
+                    <label for="prenom">Prenom : </label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Entrez Votre Prenom" required>
+                </div>
+            </div>
+            <div class="email_center">
+                <label for="email">Email : </label>
+                <input type="text" id="email" name="email" placeholder="Entre Votre Email"><br>
+            </div>
+            <div class="validation">
+                <span id="emailVerfication">Remplit l'email</span>
+                <button id="controle" onclick="Email_validation()" type="button">Valider mon email</button>
+            </div>
+        </div>
+        <div class="email_center">
+            <label for="password">Mot de passe : </label>
+            <input type="password" id="password" name="password" placeholder="Entrez Votre Password" required><br>
+        </div>
+        <div class="valide">
+            <button id="envoyer" type="button" onclick="get_infos()">Confirmer</button><br>
+            <span id="Resultat">En Cours...</span>
+        </div>
+        <div style="text-align: center;">
+            <p id="showup">Est ce que tu veut Afficher Votre MDP ? <button id="reponse" type="button"
+                    onclick="showPassword_yes()" class="oui">Oui</button><button id="reponse" type="button"
+                    onclick="showPassword_Noo()" class="non">Non</button></p>
+            <span id="affichage">****************</span>
+        </div>
+    </form>
+</body>
+
+</html>
